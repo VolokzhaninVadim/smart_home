@@ -1,13 +1,29 @@
 version: '3'
 services:
+  db:
+    image: postgres:13
+    container_name: homeassistant-postgres
+    volumes:
+      - ./config_postgres:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    # ports:
+    #   - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgresadmin
+      - POSTGRES_PASSWORD=${HOMEASSISTANT_PG_PASSWORD}
+      - POSTGRES_DB=homeassistant
+    restart: unless-stopped
+    networks:
+      - default
+
   homeassistant:
     container_name: homeassistant
     image: "ghcr.io/home-assistant/home-assistant:stable"
     volumes:
       - ./config_homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - 8123:8123
+    # ports:
+    #   - 8123:8123
     restart: unless-stopped
     privileged: true
     networks:
