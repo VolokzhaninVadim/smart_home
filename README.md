@@ -35,3 +35,13 @@ recorder:
 ```bash
 psql_connector_string: "postgresql://DATABSE_USERNAME:DATABASE_PASSWORD@DNSNAME_OR_IP_OF_POSTGRES_SERVER/DATABASE_NAME"
 ```
+
+## [HACS](https://hacs.xyz/docs/setup/download/)
+```bash
+docker exec -it homeassistant bash
+cd /
+wget -O - https://get.hacs.xyz | bash -
+```
+
+## Smartphone
+For smartphone use [Home Assistant](https://f-droid.org/packages/io.homeassistant.companion.android.minimal/).
