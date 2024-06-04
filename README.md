@@ -1,7 +1,6 @@
 # My smart home
 <img src="https://www.home-assistant.io/images/blog/2023-09-ha10/home-assistant-logo-new.png" alt="drawing" width="300"/>
 
-For 2FA authenticator use [FreeOTP+](https://f-droid.org/ru/packages/org.liberty.android.freeotpplus/)
 ## IP proxy
 Use [Nginx proxy manager](https://github.com/VolokzhaninVadim/npm)
 
@@ -44,4 +43,5 @@ wget -O - https://get.hacs.xyz | bash -
 ```
 
 ## Smartphone
-For smartphone use [Home Assistant](https://f-droid.org/packages/io.homeassistant.companion.android.minimal/).
+1. For smartphone use [Home Assistant](https://f-droid.org/packages/io.homeassistant.companion.android.minimal/).
+1. For 2FA use [FreeOTP+](https://f-droid.org/ru/packages/org.liberty.android.freeotpplus/)
