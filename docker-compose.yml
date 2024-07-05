@@ -24,6 +24,36 @@ services:
       - /run/dbus:/run/dbus:ro
     ports:
       - 8123:8123
+    depends_on:
+      - mosquitto
     restart: unless-stopped
     privileged: true
     network_mode: host
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:latest
+    restart: unless-stopped
+    ports:
+      - "1883:1883/tcp"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config_mosquitto/config:/mosquitto/config
+      - ./config_mosquitto/data:/mosquitto/data
+      - ./config_mosquitto/log:/mosquitto/log
+    network_mode: host
+    stdin_open: true
+    tty: true
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt
+    restart: unless-stopped
+    ports:
+      - "8099:8099/tcp"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config_zigbee2mqtt/zigbee2mqtt/data:/app/data
+      - /run/udev:/run/udev:ro
+    devices:
+      - /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_baf0b5bdd7e7ed11b34cd6770b2af5ab-if00-port0:/dev/ttyACM0
