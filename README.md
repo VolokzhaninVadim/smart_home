@@ -1,5 +1,5 @@
 # My smart home
-<img src="https://www.home-assistant.io/images/blog/2023-09-ha10/home-assistant-logo-new.png" alt="drawing" width="300"/>
+![](./img/smart_home.png)
 
 ## IP proxy
 Use [Nginx proxy manager](https://github.com/VolokzhaninVadim/npm)
