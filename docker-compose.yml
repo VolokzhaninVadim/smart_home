@@ -1,4 +1,3 @@
-version: '3'
 services:
   db:
     image: postgres:13
@@ -57,3 +56,4 @@ services:
       - /run/udev:/run/udev:ro
     devices:
       - /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_baf0b5bdd7e7ed11b34cd6770b2af5ab-if00-port0:/dev/ttyACM0
+    network_mode: host
