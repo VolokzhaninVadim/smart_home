@@ -7,6 +7,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 5432:5432
+    env_file: ".env"
     environment:
       - POSTGRES_USER=postgresadmin
       - POSTGRES_PASSWORD=${HOMEASSISTANT_PG_PASSWORD}
@@ -57,3 +58,31 @@ services:
     devices:
       - /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_baf0b5bdd7e7ed11b34cd6770b2af5ab-if00-port0:/dev/ttyACM0
     network_mode: host
+
+  nodered:
+    container_name: nodered
+    image: nodered/node-red
+    restart: unless-stopped
+    ports:
+      - "1880:1880/tcp"
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - ./config_nodered/data:/data
+    depends_on:
+      - homeassistant
+      - mosquitto
+
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Moscow
+    volumes:
+      - ./config_codeserver:/config
+      - ./config_homeassistant:/config_homeassistant
+    ports:
+      - "8443:8443"
