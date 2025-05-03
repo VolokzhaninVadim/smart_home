@@ -47,10 +47,12 @@ services:
 
   zigbee2mqtt:
     container_name: zigbee2mqtt
-    image: koenkk/zigbee2mqtt
+    image: ghcr.io/koenkk/zigbee2mqtt
     restart: unless-stopped
     ports:
       - "8099:8099/tcp"
+    environment: 
+      - TZ=Europe/Moscow
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./config_zigbee2mqtt/zigbee2mqtt/data:/app/data
