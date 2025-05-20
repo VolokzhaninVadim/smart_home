@@ -9,7 +9,7 @@ services:
       - 5432:5432
     env_file: ".env"
     environment:
-      - POSTGRES_USER=postgresadmin
+      - POSTGRES_USER=${HOMEASSISTANT_PG_USER}
       - POSTGRES_PASSWORD=${HOMEASSISTANT_PG_PASSWORD}
       - POSTGRES_DB=homeassistant
     restart: unless-stopped
@@ -26,6 +26,11 @@ services:
       - 8123:8123
     depends_on:
       - mosquitto
+      - db
+      - mosquitto
+      - zigbee2mqtt
+      - nodered
+      - code-server
     restart: unless-stopped
     privileged: true
     network_mode: host
@@ -41,6 +46,8 @@ services:
       - ./config_mosquitto/config:/mosquitto/config
       - ./config_mosquitto/data:/mosquitto/data
       - ./config_mosquitto/log:/mosquitto/log
+    depends_on:
+      - zigbee2mqtt
     network_mode: host
     stdin_open: true
     tty: true
