@@ -27,9 +27,7 @@ services:
     depends_on:
       - mosquitto
       - db
-      - mosquitto
       - zigbee2mqtt
-      - nodered
       - code-server
     restart: unless-stopped
     privileged: true
