@@ -1,12 +1,12 @@
 services:
   db:
-    image: postgres:13
+    image: postgres:16
     container_name: homeassistant-postgres
     volumes:
       - ./config_postgres:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - 5432:5432
+#    ports:
+#      - 5432:5432
     env_file: ".env"
     environment:
       - POSTGRES_USER=${HOMEASSISTANT_PG_USER}
@@ -22,8 +22,8 @@ services:
       - ./config_homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
-    ports:
-      - 8123:8123
+#    ports:
+#      - 8123:8123
     depends_on:
       - mosquitto
       - db
@@ -37,8 +37,8 @@ services:
     container_name: mosquitto
     image: eclipse-mosquitto:latest
     restart: unless-stopped
-    ports:
-      - "1883:1883/tcp"
+#    ports:
+#      - "1883:1883/tcp"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./config_mosquitto/config:/mosquitto/config
@@ -54,8 +54,8 @@ services:
     container_name: zigbee2mqtt
     image: ghcr.io/koenkk/zigbee2mqtt
     restart: unless-stopped
-    ports:
-      - "8099:8099/tcp"
+#    ports:
+#      - "8099:8099/tcp"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./config_zigbee2mqtt/zigbee2mqtt/data:/app/data
@@ -92,3 +92,20 @@ services:
       - ./config_homeassistant:/config_homeassistant
     ports:
       - "8443:8443"
+
+  music-assistant-server:
+    image: ghcr.io/music-assistant/server:latest
+    container_name: music-assistant-server
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./config_music_assistant:/data/
+    cap_add:
+      - SYS_ADMIN
+      - DAC_READ_SEARCH
+    security_opt:
+      - apparmor:unconfined
+    environment:
+      - LOG_LEVEL=debug
+    depends_on:
+      - homeassistant
