@@ -109,3 +109,18 @@ services:
       - LOG_LEVEL=debug
     depends_on:
       - homeassistant
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    ports:
+      - 3001:3000
+    volumes:
+      - ./config_homepage:/app/config
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=${HOMEPAGE_ALLOWED_HOSTS}
+      - TZ=Europe/Moscow
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - homeassistant
