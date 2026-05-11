@@ -29,6 +29,9 @@ services:
       - db
       - zigbee2mqtt
       - code-server
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
     restart: unless-stopped
     privileged: true
     network_mode: host
