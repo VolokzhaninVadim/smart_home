@@ -22,8 +22,8 @@ services:
       - ./config_homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
-#    ports:
-#      - 8123:8123
+    ports:
+      - 8123:8123
     depends_on:
       - mosquitto
       - db
