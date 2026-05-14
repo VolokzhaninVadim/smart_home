@@ -2,6 +2,7 @@ services:
   db:
     image: postgres:16
     container_name: homeassistant-postgres
+    shm_size: '256m'
     volumes:
       - ./config_postgres:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
